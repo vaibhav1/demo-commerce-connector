@@ -27,26 +27,31 @@ public class MyDemoCustomerRepositoryImpl extends AbstractCustomerRepository {
         // TODO Auto-generated constructor stub
     }
 
+    @Override
     public CustomerModel save(CommerceConnector connector, CustomerForm resourceForm) throws ConnectorException {
         // TODO Auto-generated method stub
         return null;
     }
 
+    @Override
     public CustomerModel create(CommerceConnector connector, CustomerForm resourceForm) throws ConnectorException {
         // TODO Auto-generated method stub
         return null;
     }
 
+    @Override
     public CustomerModel delete(CommerceConnector connector, String resourceId) throws ConnectorException {
         // TODO Auto-generated method stub
         return null;
     }
 
+    @Override
     public CustomerModel checkIn(CommerceConnector connector, CustomerForm resourceForm) throws ConnectorException {
         // TODO Auto-generated method stub
         return null;
     }
 
+    @Override
     public CustomerModel checkOut(CommerceConnector connector, CustomerForm resourceForm) throws ConnectorException {
         // TODO Auto-generated method stub
         return null;

@@ -1,0 +1,246 @@
+{
+  "response":{
+    "numFound":10,
+    "start":0,
+    "docs":[
+      {
+        "sale_price":49.99,
+        "price":49.99,
+        "description":"Vestri M-Class logo anchors the signature web stripes racing around the collar of a women's polo cut for comfort from knit stretch cotton.",
+        "title":"Women's M-Class Tee",
+        "url":"www.elasticpath.com",
+        "brand":"",
+        "pid":"WOMENS_M-Class_TEE",
+        "default_sku": "97115",
+        "categories": [
+          "VPA_T_MCLASS"
+        ],
+        "thumb_image":"https://s3-us-west-2.amazonaws.com/elasticpath-demo-images/VESTRI_VIRTUAL/97115.png",
+        "sale_price_range":[
+          49.99,
+          49.99
+        ],
+        "price_range":[
+          49.99,
+          49.99
+        ]
+      },
+      {
+        "sale_price":35900.0,
+        "price":35900.0,
+        "description":"Our full size electric/hybrid primum four door sedan gives you the performance of a sports car with the function of a sedan. Perfect for family needing something bigger, but still wanting to feel young at heart. The performance and reliability is such that it's been selected as the de factor electric police car by many governments. It's extended range, options give everything needed for the environmentally conscious service.",
+        "title":"X-Class Full Size Premium Sedan",
+        "url":"www.elasticpath.com",
+        "brand":"",
+        "pid":"X-Class-S",
+        "default_sku": "10002",
+        "categories": [
+          "VPA_T_MCLASS"
+        ],
+        "thumb_image":"https://s3-us-west-2.amazonaws.com/elasticpath-demo-images/VESTRI_VIRTUAL/10002.png",
+        "sale_price_range":[
+          35900.0,
+          35900.0
+        ],
+        "price_range":[
+          35900.0,
+          35900.0
+        ]
+      },
+      {
+        "sale_price":136.98,
+        "price":136.98,
+        "description":"The X-Ice is Michelin's third-generation Studless Ice & Snow winter tire developed for the drivers of coupes, sedans, family vans and small crossover vehicles that are looking for ice and snow traction along with predictable handling in cold, dry and wet wintry conditions. Meeting Michelin's Green X standard* for low rolling resistance confirms the X-Ice contribution to reducing vehicle fuel consumption and emissions of CO2 gases. The X-Ice is designed to take on ice and snow while it provides lasting winter performance.",
+        "title":"X-ICE X13",
+        "url":"www.elasticpath.com",
+        "brand":"",
+        "pid":"X-ICE_X13",
+        "default_sku": "24288",
+        "categories": [
+          "VPA_T_MCLASS"
+        ],
+        "thumb_image":"https://s3-us-west-2.amazonaws.com/elasticpath-demo-images/VESTRI_VIRTUAL/24288.png",
+        "sale_price_range":[
+          120.78,
+          136.98
+        ],
+        "price_range":[
+          120.78,
+          136.98
+        ]
+      },
+      {
+        "sale_price":135.0,
+        "price":135.0,
+        "description":"Cruise Control is great when you leave the city limits. But what about when you're driving on busy highwaysC\u0003b\u001aC\u0002B and freeways? Adaptive Cruise Control lets you cruise in traffic by 'reading' the traffic ahead and managingC\u0003b\u001aC\u0002B your speed and distance as it changes.",
+        "title":"Adaptive Cruise Control",
+        "url":"www.elasticpath.com",
+        "brand":"",
+        "pid":"ADAPTIVE_CRUISE_CTRL",
+        "default_sku": "97723",
+        "categories": [
+          "VPA_T_MCLASS"
+        ],
+        "thumb_image":"https://s3-us-west-2.amazonaws.com/elasticpath-demo-images/VESTRI_VIRTUAL/97723.png",
+        "sale_price_range":[
+          135.0,
+          135.0
+        ],
+        "price_range":[
+          135.0,
+          135.0
+        ]
+      },
+      {
+        "sale_price":196.0,
+        "price":196.0,
+        "description":"Advanced surfacing creates channels that carry fluids and debris to a lower reservoir with further channelling to help minimize fluid movement while driving. Once fluids become trapped in the reservoir, away from shoes and clothing, they are easily removed from the mat over the door sill.",
+        "title":"All Season Floor Mats",
+        "url":"www.elasticpath.com",
+        "brand":"",
+        "pid":"ALL_SEASON_FLOOR_MATS",
+        "default_sku": "61398",
+        "categories": [
+          "VPA_T_MCLASS"
+        ],
+        "thumb_image":"https://s3-us-west-2.amazonaws.com/elasticpath-demo-images/VESTRI_VIRTUAL/61398.png",
+        "sale_price_range":[
+          196.0,
+          196.0
+        ],
+        "price_range":[
+          196.0,
+          196.0
+        ]
+      },
+      {
+        "sale_price":775.0,
+        "price":775.0,
+        "description":"All Vestri vehicles produced, have the ability for full self-driving capability at a safety level substantially greater than that of a human driver.",
+        "title":"AutoPilot",
+        "url":"www.elasticpath.com",
+        "brand":"",
+        "pid":"AUTO_DRIVE",
+        "default_sku": "11610",
+        "categories": [
+          "VPA_T_MCLASS"
+        ],
+        "thumb_image":"https://s3-us-west-2.amazonaws.com/elasticpath-demo-images/VESTRI_VIRTUAL/11610.png",
+        "sale_price_range":[
+          75.0,
+          775.0
+        ],
+        "price_range":[
+          75.0,
+          775.0
+        ]
+      },
+      {
+        "sale_price":134.2,
+        "price":134.2,
+        "description":"The BluEarth Winter V905 is Yokohama's environmentally conscious Performance Winter / Snow tire developed for the drivers of sports cars, sports coupes, high-performance sedans and performance-tuned SUVs looking for high speed winter driving performance, along with confident traction and handling in dry and wet conditions.",
+        "title":"Bluearth V905",
+        "url":"www.elasticpath.com",
+        "brand":"",
+        "pid":"BLUEARTH_V905",
+        "default_sku": "43449",
+        "categories": [
+          "VPA_TIRES"
+        ],
+        "thumb_image":"https://s3-us-west-2.amazonaws.com/elasticpath-demo-images/VESTRI_VIRTUAL/43449.png",
+        "sale_price_range":[
+          124.56,
+          134.2
+        ],
+        "price_range":[
+          124.56,
+          134.2
+        ]
+      },
+      {
+        "sale_price":550.0,
+        "price":550.0,
+        "description":"Our corded wall charger will hook up to the utility power at a higher amperage and provide faster recharge times, available for single or two car garages",
+        "title":"Corded Wall Charger",
+        "url":"www.elasticpath.com",
+        "brand":"",
+        "pid":"CORDED_CHARGER",
+        "default_sku": "52193",
+        "categories": [
+          "VPA_CHARGING_AND_ADAPTERS"
+        ],
+        "thumb_image":"https://s3-us-west-2.amazonaws.com/elasticpath-demo-images/VESTRI_VIRTUAL/52193.png",
+        "sale_price_range":[
+          550.0,
+          550.0
+        ],
+        "price_range":[
+          550.0,
+          550.0
+        ]
+      },
+      {
+        "sale_price":233.0,
+        "price":233.0,
+        "description":"Each slim light tube has 18 SMD leds on board, which are much brighter and durable than regular LEDs. All parts are protected with reinforced poly-carbonate tube and waterproof epoxy. The 8 lights perfectly contour to the vehicle and form the fascinating undercar light show",
+        "title":"Ground Lighting",
+        "url":"www.elasticpath.com",
+        "brand":"",
+        "pid":"GROUND_LIGHTING",
+        "default_sku": "10691",
+        "categories": [
+          "VESTRI_BM_ACCESSORIES"
+        ],
+        "thumb_image":"https://s3-us-west-2.amazonaws.com/elasticpath-demo-images/VESTRI_VIRTUAL/10691.png",
+        "sale_price_range":[
+          233.0,
+          233.0
+        ],
+        "price_range":[
+          233.0,
+          233.0
+        ]
+      },
+      {
+        "sale_price":99.0,
+        "price":99.0,
+        "description":"This heated seat was deemed the best because it provided the most heat and comfort. During evaluations this seat reached almost 25% hotter than lesser models. Even on low, it provides 8% more warmth than other seats, and a panel of consumers found it superior at distributing the heat across the whole surface, without cold or hot spots.",
+        "title":"Heated Seats",
+        "url":"www.elasticpath.com",
+        "brand":"",
+        "pid":"HEATED_SEATS",
+        "default_sku": "19461",
+        "categories": [
+          "VESTRI_BM_ACCESSORIES"
+        ],
+        "thumb_image":"https://s3-us-west-2.amazonaws.com/elasticpath-demo-images/VESTRI_VIRTUAL/19461.png",
+        "sale_price_range":[
+          99.0,
+          99.0
+        ],
+        "price_range":[
+          99.0,
+          99.0
+        ]
+      }
+    ]
+  },
+  "category_map":{
+    "VESTRI_BM_APPAREL":"Apparel",
+    "VPA_CHARGING_AND_ADAPTERS":"Charging and Adapters",
+    "VPA_TA_T50":"T50",
+    "VPA_VA_MCLASS":"M-Class",
+    "VPA_VA_T50":"T50",
+    "VPA_CA_XCLASS":"X-Class",
+    "VPA_T_MCLASS":"M-Class",
+    "VESTRI_BM_ACCESSORIES":"Accessories",
+    "VESTRI_APPAREL_WOMENS":"Womens",
+    "VPA_CA_MCLASS":"M-Class",
+    "VPA_T_T50":"T50",
+    "VESTRI_APPAREL_MENS":"Mens",
+    "VPA_CHARING_AND_ADAPTERS":"Charging and Adapters",
+    "VPA_TIRES":"Tires",
+    "VPA_VEHICLE_ADDONS":"Addons",
+    "VPA_T_XCLASS":"X-Class"
+  }
+}

@@ -29,36 +29,43 @@ public class MyDemoOrderRepositoryImpl extends AbstractOrderRepository {
         // TODO Auto-generated constructor stub
     }
 
+    @Override
     public OrderModel findOne(CommerceConnector connector, String id, QuerySpec querySpec) throws ConnectorException {
         // TODO Auto-generated method stub
         return null;
     }
 
+    @Override
     public PageResult<OrderModel> findAll(CommerceConnector connector, QuerySpec querySpec) throws ConnectorException {
         // TODO Auto-generated method stub
         return null;
     }
 
+    @Override
     public OrderModel save(CommerceConnector connector, OrderForm resourceForm) throws ConnectorException {
         // TODO Auto-generated method stub
         return null;
     }
 
+    @Override
     public OrderModel create(CommerceConnector connector, OrderForm resourceForm) throws ConnectorException {
         // TODO Auto-generated method stub
         return null;
     }
 
+    @Override
     public OrderModel delete(CommerceConnector connector, String resourceId) throws ConnectorException {
         // TODO Auto-generated method stub
         return null;
     }
 
+    @Override
     public OrderModel checkIn(CommerceConnector connector, OrderForm resourceForm) throws ConnectorException {
         // TODO Auto-generated method stub
         return null;
     }
 
+    @Override
     public OrderModel checkOut(CommerceConnector connector, OrderForm resourceForm) throws ConnectorException {
         // TODO Auto-generated method stub
         return null;

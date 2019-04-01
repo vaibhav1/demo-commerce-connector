@@ -15,13 +15,170 @@
  */
 package com.bloomreach.commercedxp.demo.connectors.mydemoconnector.repository;
 
+import java.math.BigDecimal;
+
+import org.junit.Before;
 import org.junit.Test;
 
-public class MyDemoProductRepositoryImplTest {
+import com.bloomreach.commercedxp.api.v2.connector.model.ItemModel;
+import com.bloomreach.commercedxp.api.v2.connector.model.PageResult;
+import com.bloomreach.commercedxp.api.v2.connector.repository.ProductRepository;
+import com.bloomreach.commercedxp.api.v2.connector.repository.QuerySpec;
+import com.bloomreach.commercedxp.common.v2.connector.form.SimpleCategoryForm;
+import com.bloomreach.commercedxp.demo.connectors.mydemoconnector.MyDemoConstants;
+import com.bloomreach.commercedxp.starterstore.connectors.CommerceConnector;
 
-    @Test
-    public void testProductSearch() throws Exception {
-        // TODO
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
+public class MyDemoProductRepositoryImplTest extends AbstractMyDemoRepositoryTest {
+
+    private ProductRepository productRepository;
+
+    @Before
+    public void setUp() throws Exception {
+        productRepository = new MyDemoProductRepositoryImpl();
     }
 
+    @Test
+    public void testFindAll() throws Exception {
+        final CommerceConnector mockConnector = createMockCommerceConnector("mydemoSpace");
+
+        QuerySpec querySpec = new QuerySpec();
+        PageResult<ItemModel> pageResult = productRepository.findAll(mockConnector, querySpec);
+
+        assertEquals(0, pageResult.getOffset());
+        assertEquals(MyDemoConstants.DEFAULT_PAGE_LIMIT, pageResult.getLimit());
+        assertEquals(10, pageResult.getSize());
+        assertEquals(10, pageResult.getTotalSize());
+
+        ItemModel itemModel = pageResult.iterator().next();
+        assertEquals("WOMENS_M-Class_TEE", itemModel.getId());
+        assertEquals("97115", itemModel.getCode());
+        assertEquals("Women's M-Class Tee", itemModel.getDisplayName());
+        assertTrue(itemModel.getDescription().startsWith("Vestri M-Class logo anchors the signature web stripes racing"));
+        assertEquals(new BigDecimal("49.99"), itemModel.getListPrice().getMoneyAmounts().get(0).getAmount());
+        assertEquals(new BigDecimal("49.99"), itemModel.getPurchasePrice().getMoneyAmounts().get(0).getAmount());
+        assertEquals("https://s3-us-west-2.amazonaws.com/elasticpath-demo-images/VESTRI_VIRTUAL/97115.png",
+                itemModel.getImageSet().getThumbnail().getSelfLink().getHref());
+
+        querySpec = new QuerySpec(0L, 5L);
+        pageResult = productRepository.findAll(mockConnector, querySpec);
+
+        assertEquals(0, pageResult.getOffset());
+        assertEquals(5, pageResult.getLimit());
+        assertEquals(5, pageResult.getSize());
+        assertEquals(10, pageResult.getTotalSize());
+
+        itemModel = pageResult.iterator().next();
+        assertEquals("WOMENS_M-Class_TEE", itemModel.getId());
+        assertEquals("97115", itemModel.getCode());
+        assertEquals("Women's M-Class Tee", itemModel.getDisplayName());
+        assertTrue(itemModel.getDescription().startsWith("Vestri M-Class logo anchors the signature web stripes racing"));
+        assertEquals(new BigDecimal("49.99"), itemModel.getListPrice().getMoneyAmounts().get(0).getAmount());
+        assertEquals(new BigDecimal("49.99"), itemModel.getPurchasePrice().getMoneyAmounts().get(0).getAmount());
+        assertEquals("https://s3-us-west-2.amazonaws.com/elasticpath-demo-images/VESTRI_VIRTUAL/97115.png",
+                itemModel.getImageSet().getThumbnail().getSelfLink().getHref());
+
+        querySpec = new QuerySpec(5L, 5L);
+        pageResult = productRepository.findAll(mockConnector, querySpec);
+
+        assertEquals(5, pageResult.getOffset());
+        assertEquals(5, pageResult.getLimit());
+        assertEquals(5, pageResult.getSize());
+        assertEquals(10, pageResult.getTotalSize());
+
+        itemModel = pageResult.iterator().next();
+        assertEquals("AUTO_DRIVE", itemModel.getId());
+        assertEquals("11610", itemModel.getCode());
+        assertEquals("AutoPilot", itemModel.getDisplayName());
+        assertTrue(itemModel.getDescription().startsWith("All Vestri vehicles produced, have the ability for full self-driving"));
+        assertEquals(new BigDecimal("775.0"), itemModel.getListPrice().getMoneyAmounts().get(0).getAmount());
+        assertEquals(new BigDecimal("775.0"), itemModel.getPurchasePrice().getMoneyAmounts().get(0).getAmount());
+        assertEquals("https://s3-us-west-2.amazonaws.com/elasticpath-demo-images/VESTRI_VIRTUAL/11610.png",
+                itemModel.getImageSet().getThumbnail().getSelfLink().getHref());
+    }
+
+
+    @Test
+    public void testFindOne() throws Exception {
+        final CommerceConnector mockConnector = createMockCommerceConnector("mydemoSpace");
+
+        QuerySpec querySpec = new QuerySpec();
+        ItemModel itemModel = productRepository.findOne(mockConnector, "97115", querySpec);
+
+        assertEquals("WOMENS_M-Class_TEE", itemModel.getId());
+        assertEquals("97115", itemModel.getCode());
+        assertEquals("Women's M-Class Tee", itemModel.getDisplayName());
+        assertTrue(itemModel.getDescription().startsWith("Vestri M-Class logo anchors the signature web stripes racing"));
+        assertEquals(new BigDecimal("49.99"), itemModel.getListPrice().getMoneyAmounts().get(0).getAmount());
+        assertEquals(new BigDecimal("49.99"), itemModel.getPurchasePrice().getMoneyAmounts().get(0).getAmount());
+        assertEquals("https://s3-us-west-2.amazonaws.com/elasticpath-demo-images/VESTRI_VIRTUAL/97115.png",
+                itemModel.getImageSet().getThumbnail().getSelfLink().getHref());
+
+        itemModel = productRepository.findOne(mockConnector, "11610", querySpec);
+
+        assertEquals("AUTO_DRIVE", itemModel.getId());
+        assertEquals("11610", itemModel.getCode());
+        assertEquals("AutoPilot", itemModel.getDisplayName());
+        assertTrue(itemModel.getDescription().startsWith("All Vestri vehicles produced, have the ability for full self-driving"));
+        assertEquals(new BigDecimal("775.0"), itemModel.getListPrice().getMoneyAmounts().get(0).getAmount());
+        assertEquals(new BigDecimal("775.0"), itemModel.getPurchasePrice().getMoneyAmounts().get(0).getAmount());
+        assertEquals("https://s3-us-west-2.amazonaws.com/elasticpath-demo-images/VESTRI_VIRTUAL/11610.png",
+                itemModel.getImageSet().getThumbnail().getSelfLink().getHref());
+
+        itemModel = productRepository.findOne(mockConnector, "non_existing", querySpec);
+        assertNull(itemModel);
+    }
+
+    @Test
+    public void testFindAllByCategory() throws Exception {
+        final CommerceConnector mockConnector = createMockCommerceConnector("mydemoSpace");
+
+        QuerySpec querySpec = new QuerySpec();
+        PageResult<ItemModel> pageResult = productRepository.findAllByCategory(mockConnector,
+                new SimpleCategoryForm("VPA_T_MCLASS"), querySpec);
+
+        assertEquals(0, pageResult.getOffset());
+        assertEquals(MyDemoConstants.DEFAULT_PAGE_LIMIT, pageResult.getLimit());
+        assertEquals(6, pageResult.getSize());
+        assertEquals(6, pageResult.getTotalSize());
+
+        ItemModel itemModel = pageResult.iterator().next();
+        assertEquals("WOMENS_M-Class_TEE", itemModel.getId());
+        assertEquals("97115", itemModel.getCode());
+        assertEquals("Women's M-Class Tee", itemModel.getDisplayName());
+        assertTrue(itemModel.getDescription().startsWith("Vestri M-Class logo anchors the signature web stripes racing"));
+        assertEquals(new BigDecimal("49.99"), itemModel.getListPrice().getMoneyAmounts().get(0).getAmount());
+        assertEquals(new BigDecimal("49.99"), itemModel.getPurchasePrice().getMoneyAmounts().get(0).getAmount());
+        assertEquals("https://s3-us-west-2.amazonaws.com/elasticpath-demo-images/VESTRI_VIRTUAL/97115.png",
+                itemModel.getImageSet().getThumbnail().getSelfLink().getHref());
+
+        pageResult = productRepository.findAllByCategory(mockConnector,
+                new SimpleCategoryForm("VPA_TIRES"), querySpec);
+
+        assertEquals(0, pageResult.getOffset());
+        assertEquals(MyDemoConstants.DEFAULT_PAGE_LIMIT, pageResult.getLimit());
+        assertEquals(1, pageResult.getSize());
+        assertEquals(1, pageResult.getTotalSize());
+
+        itemModel = pageResult.iterator().next();
+        assertEquals("BLUEARTH_V905", itemModel.getId());
+        assertEquals("43449", itemModel.getCode());
+        assertEquals("Bluearth V905", itemModel.getDisplayName());
+        assertTrue(itemModel.getDescription().startsWith("The BluEarth Winter V905 is Yokohama's environmentally conscious Performance Winter / Snow tire"));
+        assertEquals(new BigDecimal("134.2"), itemModel.getListPrice().getMoneyAmounts().get(0).getAmount());
+        assertEquals(new BigDecimal("134.2"), itemModel.getPurchasePrice().getMoneyAmounts().get(0).getAmount());
+        assertEquals("https://s3-us-west-2.amazonaws.com/elasticpath-demo-images/VESTRI_VIRTUAL/43449.png",
+                itemModel.getImageSet().getThumbnail().getSelfLink().getHref());
+
+        pageResult = productRepository.findAllByCategory(mockConnector,
+                new SimpleCategoryForm("NON_EXISTING"), querySpec);
+
+        assertEquals(0, pageResult.getOffset());
+        assertEquals(MyDemoConstants.DEFAULT_PAGE_LIMIT, pageResult.getLimit());
+        assertEquals(0, pageResult.getSize());
+        assertEquals(0, pageResult.getTotalSize());
+    }
 }

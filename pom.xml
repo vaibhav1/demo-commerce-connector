@@ -25,7 +25,11 @@
 
   <properties>
 
-    <starterstore.version>2.0.0-SNAPSHOT</starterstore.version>
+    <starterstore.version>2.0.0</starterstore.version>
+    <hippo.addon-crisp.version>13.1.0</hippo.addon-crisp.version>
+
+    <jackson2.version>2.9.8</jackson2.version>
+    <jackson2-databind.version>2.9.8</jackson2-databind.version>
 
     <junit.version>4.12</junit.version>
     <easymock.version>3.4</easymock.version>
@@ -59,6 +63,34 @@
     </dependency>
 
     <dependency>
+      <groupId>org.onehippo.cms7</groupId>
+      <artifactId>hippo-addon-crisp-api</artifactId>
+      <version>${hippo.addon-crisp.version}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+      <version>${jackson2.version}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-annotations</artifactId>
+      <version>${jackson2.version}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>${jackson2-databind.version}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>${junit.version}</version>
@@ -72,6 +104,31 @@
       <scope>test</scope>
     </dependency>
 
+    <dependency>
+      <groupId>com.bloomreach.commercedxp</groupId>
+      <artifactId>starterstore-common</artifactId>
+      <version>${starterstore.version}</version>
+      <scope>test</scope>
+    </dependency>
+
   </dependencies>
+
+  <build>
+
+    <defaultGoal>package</defaultGoal>
+
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.0</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+    </plugins>
+
+  </build>
 
 </project>
