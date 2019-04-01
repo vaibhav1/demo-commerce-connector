@@ -31,6 +31,8 @@
     <jackson2.version>2.9.8</jackson2.version>
     <jackson2-databind.version>2.9.8</jackson2-databind.version>
 
+    <commons-lang3.version>3.2.1</commons-lang3.version>
+
     <junit.version>4.12</junit.version>
     <easymock.version>3.4</easymock.version>
 
@@ -88,6 +90,12 @@
       <artifactId>jackson-databind</artifactId>
       <version>${jackson2-databind.version}</version>
       <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>${commons-lang3.version}</version>
     </dependency>
 
     <dependency>

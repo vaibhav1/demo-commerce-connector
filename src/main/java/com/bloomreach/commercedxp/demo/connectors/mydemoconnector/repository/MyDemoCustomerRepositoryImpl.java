@@ -15,46 +15,82 @@
  */
 package com.bloomreach.commercedxp.demo.connectors.mydemoconnector.repository;
 
+import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
+
+import org.apache.commons.lang3.StringUtils;
+
 import com.bloomreach.commercedxp.api.v2.connector.ConnectorException;
 import com.bloomreach.commercedxp.api.v2.connector.form.CustomerForm;
 import com.bloomreach.commercedxp.api.v2.connector.model.CustomerModel;
 import com.bloomreach.commercedxp.api.v2.connector.repository.AbstractCustomerRepository;
+import com.bloomreach.commercedxp.demo.connectors.mydemoconnector.model.MyDemoCustomerModel;
 import com.bloomreach.commercedxp.starterstore.connectors.CommerceConnector;
 
 public class MyDemoCustomerRepositoryImpl extends AbstractCustomerRepository {
 
-    public MyDemoCustomerRepositoryImpl() {
-        // TODO Auto-generated constructor stub
-    }
+    private Map<String, MyDemoCustomerModel> customerModels = new ConcurrentHashMap<>();
 
     @Override
     public CustomerModel save(CommerceConnector connector, CustomerForm resourceForm) throws ConnectorException {
-        // TODO Auto-generated method stub
+        if (StringUtils.isBlank(resourceForm.getEmail())) {
+            throw new IllegalArgumentException("Blank customer E-Mail address.");
+        }
+
+        final MyDemoCustomerModel customerModel = customerModels.get(resourceForm.getEmail());
+
+        if (customerModel == null) {
+            throw new ConnectorException("404", "Customer not found.");
+        }
+
+        customerModel.setFirstName(resourceForm.getFirstName());
+        customerModel.setLastName(resourceForm.getLastName());
+
         return null;
     }
 
     @Override
     public CustomerModel create(CommerceConnector connector, CustomerForm resourceForm) throws ConnectorException {
-        // TODO Auto-generated method stub
+        if (StringUtils.isBlank(resourceForm.getEmail())) {
+            throw new IllegalArgumentException("Blank customer's E-Mail address.");
+        }
+
+        final MyDemoCustomerModel customerModel = new MyDemoCustomerModel(UUID.randomUUID().toString());
+        customerModel.setEmail(resourceForm.getEmail());
+        customerModel.setFirstName(resourceForm.getFirstName());
+        customerModel.setLastName(resourceForm.getLastName());
+        customerModels.put(resourceForm.getEmail(), customerModel);
+
         return null;
     }
 
     @Override
     public CustomerModel delete(CommerceConnector connector, String resourceId) throws ConnectorException {
-        // TODO Auto-generated method stub
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public CustomerModel checkIn(CommerceConnector connector, CustomerForm resourceForm) throws ConnectorException {
-        // TODO Auto-generated method stub
-        return null;
+        if (StringUtils.isBlank(resourceForm.getEmail())) {
+            throw new IllegalArgumentException("Blank customer's E-Mail address.");
+        }
+
+        final MyDemoCustomerModel customerModel = customerModels.get(resourceForm.getEmail());
+
+        if (customerModel == null) {
+            throw new ConnectorException("401", "Customer not authenticated.");
+        }
+
+        return customerModel;
     }
 
     @Override
     public CustomerModel checkOut(CommerceConnector connector, CustomerForm resourceForm) throws ConnectorException {
-        // TODO Auto-generated method stub
-        return null;
-    }
+        if (StringUtils.isBlank(resourceForm.getEmail())) {
+            throw new IllegalArgumentException("Blank customer's E-Mail address.");
+        }
 
+        return customerModels.get(resourceForm.getEmail());
+    }
 }
