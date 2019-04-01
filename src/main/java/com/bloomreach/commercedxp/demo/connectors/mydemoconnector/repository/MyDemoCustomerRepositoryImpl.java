@@ -47,7 +47,7 @@ public class MyDemoCustomerRepositoryImpl extends AbstractCustomerRepository {
         customerModel.setFirstName(resourceForm.getFirstName());
         customerModel.setLastName(resourceForm.getLastName());
 
-        return null;
+        return customerModel;
     }
 
     @Override
@@ -62,7 +62,7 @@ public class MyDemoCustomerRepositoryImpl extends AbstractCustomerRepository {
         customerModel.setLastName(resourceForm.getLastName());
         customerModels.put(resourceForm.getEmail(), customerModel);
 
-        return null;
+        return customerModel;
     }
 
     @Override
