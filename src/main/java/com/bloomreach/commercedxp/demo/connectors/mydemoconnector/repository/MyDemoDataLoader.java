@@ -28,7 +28,7 @@ final class MyDemoDataLoader {
         private static MyDemoData data = null;
 
         static {
-            try (InputStream input = Thread.currentThread().getContextClassLoader().getResourceAsStream(MY_DEMO_DATA_RESOURCE)) {
+            try (InputStream input = MyDemoDataLoader.class.getClassLoader().getResourceAsStream(MY_DEMO_DATA_RESOURCE)) {
                 final ObjectMapper mapper = new ObjectMapper();
                 data = mapper.readValue(input, MyDemoData.class);
             } catch (Exception e) {
