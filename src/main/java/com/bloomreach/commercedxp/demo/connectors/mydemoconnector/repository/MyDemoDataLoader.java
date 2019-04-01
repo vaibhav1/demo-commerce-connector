@@ -20,7 +20,7 @@ import java.io.InputStream;
 import com.bloomreach.commercedxp.demo.connectors.mydemoconnector.model.MyDemoData;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-class MyDemoDataLoader {
+final class MyDemoDataLoader {
 
     private static final String MY_DEMO_DATA_RESOURCE = "com/bloomreach/commercedxp/demo/connectors/mydemoconnector/demoproducts.json";
 

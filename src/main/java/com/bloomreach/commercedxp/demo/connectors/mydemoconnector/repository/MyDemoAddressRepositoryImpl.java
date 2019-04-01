@@ -23,10 +23,6 @@ import com.bloomreach.commercedxp.starterstore.connectors.CommerceConnector;
 
 public class MyDemoAddressRepositoryImpl extends AbstractAddressRepository {
 
-    public MyDemoAddressRepositoryImpl() {
-        // TODO Auto-generated constructor stub
-    }
-
     @Override
     public AddressModel save(CommerceConnector connector, CustomerForm resourceForm) throws ConnectorException {
         // TODO Auto-generated method stub

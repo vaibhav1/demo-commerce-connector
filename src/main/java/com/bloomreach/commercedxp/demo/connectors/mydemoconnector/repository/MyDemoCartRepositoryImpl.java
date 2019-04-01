@@ -23,10 +23,6 @@ import com.bloomreach.commercedxp.starterstore.connectors.CommerceConnector;
 
 public class MyDemoCartRepositoryImpl extends AbstractCartRepository {
 
-    public MyDemoCartRepositoryImpl() {
-        // TODO Auto-generated constructor stub
-    }
-
     @Override
     public CartModel save(CommerceConnector connector, CartForm resourceForm) throws ConnectorException {
         // TODO Auto-generated method stub

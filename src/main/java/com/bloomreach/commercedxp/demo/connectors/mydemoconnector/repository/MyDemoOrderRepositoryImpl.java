@@ -25,10 +25,6 @@ import com.bloomreach.commercedxp.starterstore.connectors.CommerceConnector;
 
 public class MyDemoOrderRepositoryImpl extends AbstractOrderRepository {
 
-    public MyDemoOrderRepositoryImpl() {
-        // TODO Auto-generated constructor stub
-    }
-
     @Override
     public OrderModel findOne(CommerceConnector connector, String id, QuerySpec querySpec) throws ConnectorException {
         // TODO Auto-generated method stub
