@@ -43,14 +43,12 @@ public class MyDemoAddressRepositoryImpl extends AbstractAddressRepository {
 
     @Override
     public AddressModel checkIn(CommerceConnector connector, CustomerForm resourceForm) throws ConnectorException {
-        // TODO Auto-generated method stub
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public AddressModel checkOut(CommerceConnector connector, CustomerForm resourceForm) throws ConnectorException {
-        // TODO Auto-generated method stub
-        return null;
+        throw new UnsupportedOperationException();
     }
 
 }

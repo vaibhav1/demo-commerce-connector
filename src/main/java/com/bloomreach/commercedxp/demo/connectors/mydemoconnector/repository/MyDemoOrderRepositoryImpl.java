@@ -45,14 +45,12 @@ public class MyDemoOrderRepositoryImpl extends AbstractOrderRepository {
 
     @Override
     public OrderModel create(CommerceConnector connector, OrderForm resourceForm) throws ConnectorException {
-        // TODO Auto-generated method stub
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public OrderModel delete(CommerceConnector connector, String resourceId) throws ConnectorException {
-        // TODO Auto-generated method stub
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -63,8 +61,7 @@ public class MyDemoOrderRepositoryImpl extends AbstractOrderRepository {
 
     @Override
     public OrderModel checkOut(CommerceConnector connector, OrderForm resourceForm) throws ConnectorException {
-        // TODO Auto-generated method stub
-        return null;
+        throw new UnsupportedOperationException();
     }
 
 }
