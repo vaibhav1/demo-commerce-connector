@@ -26,6 +26,9 @@ import com.bloomreach.commercedxp.starterstore.connectors.CommerceConnector;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+/**
+ * Unit tests for my CustomerRepository implementation.
+ */
 public class MyDemoCustomerRepositoryImplTest extends AbstractMyDemoRepositoryTest {
 
     private CustomerRepository customerRepository;
@@ -37,11 +40,17 @@ public class MyDemoCustomerRepositoryImplTest extends AbstractMyDemoRepositoryTe
 
     @Before
     public void testCheckInWithoutSignup() throws Exception {
+        // Create a mock CommerceConnector instance which simply sets the default (CRISP) resource space name
+        // even if CRISP is not used in our demo module. See AbstractMyDemoRepositoryTest#createMockCommerceConnector()
+        // for detail on how it can create a mock CommerceConnector and CommerceConnectorComponent instances using EasyMock. 
         final CommerceConnector mockConnector = createMockCommerceConnector("mydemoSpace");
 
+        // Create a simple CustomerForm which is passed along from an application to the CustomerRepository,
+        // with customer sign-in information.
         SimpleCustomerForm resourceForm = new SimpleCustomerForm("john@example.com", "password", "mystore");
 
         try {
+            // This sign-in attempt should fail because there's no signed-up customer initially.
             customerRepository.checkIn(mockConnector, resourceForm);
             fail("Not supposed to sign-in by non-registered user.");
         } catch (ConnectorException expected) {
@@ -50,24 +59,38 @@ public class MyDemoCustomerRepositoryImplTest extends AbstractMyDemoRepositoryTe
 
     @Before
     public void testCheckInOutAfterSignup() throws Exception {
+        // Create a mock CommerceConnector instance which simply sets the default (CRISP) resource space name
+        // even if CRISP is not used in our demo module. See AbstractMyDemoRepositoryTest#createMockCommerceConnector()
+        // for detail on how it can create a mock CommerceConnector and CommerceConnectorComponent instances using EasyMock.
         final CommerceConnector mockConnector = createMockCommerceConnector("mydemoSpace");
 
+        // Create a simple CustomerForm which is passed along from an application to the CustomerRepository,
+        // with customer sign-up information.
         SimpleCustomerForm resourceForm = new SimpleCustomerForm("John", "", "Doe", "john@example.com", "password", "password", null);
+        // When a customer signing up, StarterStore Application invokes CustomerRepository#create(...) operation.
         CustomerModel customerModel = customerRepository.create(mockConnector, resourceForm);
 
+        // Let's validate the sign-up outcome, which should be a valid CustomerModel object
+        // with the same values given by the CustomerForm object.
         assertEquals("John", customerModel.getFirstName());
         assertEquals("Doe", customerModel.getLastName());
         assertEquals("john@example.com", customerModel.getEmail());
 
+        // All right. Let's try to sign-in with the customer.
         resourceForm = new SimpleCustomerForm("john@example.com", "password", "mystore");
+        // When a customer signing in, StarterStore Application invokes CustomerRepository#checkIn(...) operation.
         customerModel = customerRepository.checkIn(mockConnector, resourceForm);
 
+        // Let's validate the sign-in outcome, which should be a valid CustomerModel object.
         assertEquals("John", customerModel.getFirstName());
         assertEquals("Doe", customerModel.getLastName());
         assertEquals("john@example.com", customerModel.getEmail());
 
+        // Now, let's sign-out.
+        // When a customer signing out, StarterStore Application invokes CustomerRepository#checkOut(...) operation.
         customerModel = customerRepository.checkOut(mockConnector, resourceForm);
 
+        // Let's validate the sign-out outcome, which should be the same valid CustomerModel object again.
         assertEquals("John", customerModel.getFirstName());
         assertEquals("Doe", customerModel.getLastName());
         assertEquals("john@example.com", customerModel.getEmail());

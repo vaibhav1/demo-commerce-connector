@@ -31,13 +31,18 @@ import com.bloomreach.commercedxp.demo.connectors.mydemoconnector.model.MyDemoDa
 import com.bloomreach.commercedxp.demo.connectors.mydemoconnector.model.MyDemoProductItem;
 import com.bloomreach.commercedxp.starterstore.connectors.CommerceConnector;
 
+/**
+ * Demo ProductRepository Implementation.
+ */
 public class MyDemoProductRepositoryImpl extends AbstractProductRepository {
 
     @Override
     public ItemModel findOne(CommerceConnector connector, String id, QuerySpec querySpec) throws ConnectorException {
+        // Retrieve the internal data first.
         final MyDemoData data = MyDemoDataLoader.getMyDemoData();
         final List<MyDemoProductItem> productItems = data.getResponse().getProductItems();
 
+        // For simplicity, just iterate over the items and return it if an item is found by the product code.
         for (MyDemoProductItem item : productItems) {
             if (id.equals(item.getCode())) {
                 return item;
@@ -49,9 +54,11 @@ public class MyDemoProductRepositoryImpl extends AbstractProductRepository {
 
     @Override
     public PageResult<ItemModel> findAll(CommerceConnector connector, QuerySpec querySpec) throws ConnectorException {
+        // Read the pagination params from querySpec.
         final long offset = querySpec.getOffset();
         final long limit = (querySpec.getLimit() != null) ? querySpec.getLimit().longValue()
                 : MyDemoConstants.DEFAULT_PAGE_LIMIT;
+        // The item collection to be in the return object.
         final List<ItemModel> itemModels = new LinkedList<>();
 
         final MyDemoData data = MyDemoDataLoader.getMyDemoData();
@@ -60,10 +67,12 @@ public class MyDemoProductRepositoryImpl extends AbstractProductRepository {
         final long totalSize = productItems.size();
         final long endOffset = Math.min(offset + limit, totalSize);
 
+        // Put only the items in the index range of the specified page.
         for (int index = (int) offset; index < endOffset; index++) {
             itemModels.add(productItems.get(index));
         }
 
+        // Return a paginated result using the common SimplePageResult class with item collection and pagination info.
         return new SimplePageResult<>(itemModels, offset, limit, totalSize);
     }
 
@@ -78,6 +87,7 @@ public class MyDemoProductRepositoryImpl extends AbstractProductRepository {
         final List<ItemModel> itemModels = new LinkedList<>();
 
         final MyDemoData data = MyDemoDataLoader.getMyDemoData();
+        // Almost same as #findAll(...), but let's filter the items only for the specific category.
         final List<MyDemoProductItem> productItems = data.getResponse().getProductItems().stream()
                 .filter(item -> item.getCategories().contains(categoryId)).collect(Collectors.toList());
 
@@ -88,6 +98,7 @@ public class MyDemoProductRepositoryImpl extends AbstractProductRepository {
             itemModels.add(productItems.get(index));
         }
 
+        // Return a paginated result using the common SimplePageResult class with item collection and pagination info. 
         return new SimplePageResult<>(itemModels, offset, limit, totalSize);
     }
 

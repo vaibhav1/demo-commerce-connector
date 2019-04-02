@@ -32,6 +32,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+/**
+ * Unit tests for my ProductRepository implementation.
+ */
 public class MyDemoProductRepositoryImplTest extends AbstractMyDemoRepositoryTest {
 
     private ProductRepository productRepository;
@@ -43,16 +46,23 @@ public class MyDemoProductRepositoryImplTest extends AbstractMyDemoRepositoryTes
 
     @Test
     public void testFindAll() throws Exception {
+        // Create a mock CommerceConnector instance which simply sets the default (CRISP) resource space name
+        // even if CRISP is not used in our demo module. See AbstractMyDemoRepositoryTest#createMockCommerceConnector()
+        // for detail on how it can create a mock CommerceConnector and CommerceConnectorComponent instances using EasyMock.
         final CommerceConnector mockConnector = createMockCommerceConnector("mydemoSpace");
 
+        // Create a QuerySpec with default pagination info,
+        // and invoke the ProductRepository with that.
         QuerySpec querySpec = new QuerySpec();
         PageResult<ItemModel> pageResult = productRepository.findAll(mockConnector, querySpec);
 
+        // Check the paginated result starting at the zero index.
         assertEquals(0, pageResult.getOffset());
         assertEquals(MyDemoConstants.DEFAULT_PAGE_LIMIT, pageResult.getLimit());
         assertEquals(10, pageResult.getSize());
         assertEquals(10, pageResult.getTotalSize());
 
+        // Also, check the first product item in the result collection.
         ItemModel itemModel = pageResult.iterator().next();
         assertEquals("WOMENS_M-Class_TEE", itemModel.getId());
         assertEquals("97115", itemModel.getCode());
@@ -81,14 +91,18 @@ public class MyDemoProductRepositoryImplTest extends AbstractMyDemoRepositoryTes
         assertEquals("https://s3-us-west-2.amazonaws.com/elasticpath-demo-images/VESTRI_VIRTUAL/97115.png",
                 itemModel.getImageSet().getThumbnail().getSelfLink().getHref());
 
+        // Create a QuerySpec with a specific pagination info in range [5, 10),
+        // and invoke the ProductRepository with that. 
         querySpec = new QuerySpec(5L, 5L);
         pageResult = productRepository.findAll(mockConnector, querySpec);
 
+        // Check the paginated result starting at the 5th index. 
         assertEquals(5, pageResult.getOffset());
         assertEquals(5, pageResult.getLimit());
         assertEquals(5, pageResult.getSize());
         assertEquals(10, pageResult.getTotalSize());
 
+        // Also, check the first product item in the result collection.
         itemModel = pageResult.iterator().next();
         assertEquals("AUTO_DRIVE", itemModel.getId());
         assertEquals("11610", itemModel.getCode());
