@@ -34,4 +34,17 @@ public class MyDemoResponse {
         this.productItems = productItems;
     }
 
+    public MyDemoProductItem getProductItemById(final String id) {
+        if (productItems == null) {
+            return null;
+        }
+
+        for (MyDemoProductItem item : productItems) {
+            if (item.getId().equals(id)) {
+                return item;
+            }
+        }
+
+        return null;
+    }
 }

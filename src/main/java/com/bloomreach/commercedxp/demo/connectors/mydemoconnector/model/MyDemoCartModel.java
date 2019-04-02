@@ -26,7 +26,7 @@ public class MyDemoCartModel implements CartModel {
 
     private final String id;
     private final String username;
-    private int totalQuantity;
+    private int totalQuantity = -1;
     private List<CartEntryModel> cartEntries;
     private String orderId;
 
@@ -46,6 +46,18 @@ public class MyDemoCartModel implements CartModel {
 
     @Override
     public int getTotalQuantity() {
+        if (totalQuantity == -1) {
+            if (cartEntries == null || cartEntries.isEmpty()) {
+                return 0;
+            }
+
+            int sum = 0;
+            for (CartEntryModel entry : cartEntries) {
+                sum += entry.getQuantity();
+            }
+            return sum;
+        }
+
         return totalQuantity;
     }
 

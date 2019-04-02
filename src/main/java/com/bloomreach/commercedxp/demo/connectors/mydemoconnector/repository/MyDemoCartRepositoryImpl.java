@@ -15,6 +15,7 @@
  */
 package com.bloomreach.commercedxp.demo.connectors.mydemoconnector.repository;
 
+import java.util.Arrays;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
@@ -31,6 +32,7 @@ import com.bloomreach.commercedxp.api.v2.connector.visitor.VisitorContext;
 import com.bloomreach.commercedxp.api.v2.connector.visitor.VisitorContextAccess;
 import com.bloomreach.commercedxp.demo.connectors.mydemoconnector.model.MyDemoCartEntryModel;
 import com.bloomreach.commercedxp.demo.connectors.mydemoconnector.model.MyDemoCartModel;
+import com.bloomreach.commercedxp.demo.connectors.mydemoconnector.model.MyDemoProductItem;
 import com.bloomreach.commercedxp.starterstore.connectors.CommerceConnector;
 
 public class MyDemoCartRepositoryImpl extends AbstractCartRepository {
@@ -55,9 +57,7 @@ public class MyDemoCartRepositoryImpl extends AbstractCartRepository {
         final MyDemoCartModel cartModel = new MyDemoCartModel(cartId, username);
 
         for (CartEntryForm entryForm : resourceForm.getEntries()) {
-            final MyDemoCartEntryModel entryModel = new MyDemoCartEntryModel(entryForm.getId());
-            entryModel.setQuantity(entryForm.getQuantity());
-            cartModel.addEntry(entryModel);
+            cartModel.addEntry(createCartEntryModel(entryForm));
         }
 
         cartModels.put(username, cartModel);
@@ -85,9 +85,7 @@ public class MyDemoCartRepositoryImpl extends AbstractCartRepository {
 
             switch (action) {
             case CREATE:
-                final MyDemoCartEntryModel newEntryModel = new MyDemoCartEntryModel(entryForm.getId());
-                newEntryModel.setQuantity(entryForm.getQuantity());
-                cartModel.addEntry(newEntryModel);
+                cartModel.addEntry(createCartEntryModel(entryForm));
                 break;
             case UPDATE:
                 final MyDemoCartEntryModel entryModel = (MyDemoCartEntryModel) cartModel.getEntryById(entryForm.getId());
@@ -135,4 +133,18 @@ public class MyDemoCartRepositoryImpl extends AbstractCartRepository {
         return null;
     }
 
+    private MyDemoCartEntryModel createCartEntryModel(final CartEntryForm entryForm) {
+        final String productItemId = entryForm.getId();
+        final MyDemoCartEntryModel entryModel = new MyDemoCartEntryModel(productItemId);
+        entryModel.setQuantity(entryForm.getQuantity());
+
+        final MyDemoProductItem productItem = MyDemoDataLoader.getMyDemoData().getResponse()
+                .getProductItemById(productItemId);
+
+        if (productItem != null) {
+            entryModel.setItems(Arrays.asList(productItem));
+        }
+
+        return entryModel;
+    }
 }
