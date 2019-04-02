@@ -24,6 +24,7 @@ public class MyDemoCustomerModel implements CustomerModel {
     private String firstName;
     private String lastName;
     private String email;
+    private String accessToken;
 
     public MyDemoCustomerModel(final String id) {
         this.id = id;
@@ -69,8 +70,10 @@ public class MyDemoCustomerModel implements CustomerModel {
 
     @Override
     public String getAccessToken() {
-        // TODO Auto-generated method stub
-        return null;
+        return accessToken;
     }
 
+    public void setAccessToken(final String accessToken) {
+        this.accessToken = accessToken;
+    }
 }

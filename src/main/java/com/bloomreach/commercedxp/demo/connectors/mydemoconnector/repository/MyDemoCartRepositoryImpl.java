@@ -57,6 +57,7 @@ public class MyDemoCartRepositoryImpl extends AbstractCartRepository {
         for (CartEntryForm entryForm : resourceForm.getEntries()) {
             final MyDemoCartEntryModel entryModel = new MyDemoCartEntryModel(entryForm.getId());
             entryModel.setQuantity(entryForm.getQuantity());
+            cartModel.addEntry(entryModel);
         }
 
         cartModels.put(username, cartModel);

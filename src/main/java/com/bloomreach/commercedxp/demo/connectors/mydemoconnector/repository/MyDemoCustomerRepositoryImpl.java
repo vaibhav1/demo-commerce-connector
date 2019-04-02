@@ -60,6 +60,8 @@ public class MyDemoCustomerRepositoryImpl extends AbstractCustomerRepository {
         customerModel.setEmail(resourceForm.getEmail());
         customerModel.setFirstName(resourceForm.getFirstName());
         customerModel.setLastName(resourceForm.getLastName());
+        // setting a visitor specific access token, just for demonstration purpose, but will not be used in this demo.
+        customerModel.setAccessToken(UUID.randomUUID().toString());
         customerModels.put(resourceForm.getEmail(), customerModel);
 
         return customerModel;
