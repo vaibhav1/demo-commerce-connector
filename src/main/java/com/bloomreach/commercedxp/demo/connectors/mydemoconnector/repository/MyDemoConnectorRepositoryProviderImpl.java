@@ -17,6 +17,10 @@ package com.bloomreach.commercedxp.demo.connectors.mydemoconnector.repository;
 
 import com.bloomreach.commercedxp.api.v2.connector.provider.AbstractConnectorRepositoryProvider;
 
+/**
+ * Simple ConnectorRepositoryProvider extending AbstractConnectorRepositoryProvider to just set/get CommerceRepository beans.
+ * It inherits all the getters and setters for the CommerceRepository beans from AbstractConnectorRepositoryProvider.
+ */
 public class MyDemoConnectorRepositoryProviderImpl extends AbstractConnectorRepositoryProvider {
 
 }

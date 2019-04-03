@@ -22,6 +22,10 @@
                            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
                            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
+  <!--
+    The entrypoint component bean, of type c.b.c.api.v2.connector.provider.ConnectorRepositoryProvider,
+    through which StarterStore retrieves your CommerceRepository components.
+  -->
   <bean class="com.bloomreach.commercedxp.demo.connectors.mydemoconnector.repository.MyDemoConnectorRepositoryProviderImpl">
     <property name="categoryRepository" ref="categoryRepository" />
     <property name="productRepository" ref="productRepository" />

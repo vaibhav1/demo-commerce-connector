@@ -20,13 +20,22 @@ import java.io.InputStream;
 import com.bloomreach.commercedxp.demo.connectors.mydemoconnector.model.MyDemoData;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * Demo Data Loader Utility.
+ */
 final class MyDemoDataLoader {
 
+    /**
+     * Static demo product/category data JSON resource path.
+     */
     private static final String MY_DEMO_DATA_RESOURCE = "com/bloomreach/commercedxp/demo/connectors/mydemoconnector/demoproducts.json";
 
+    /**
+     * Lazy data loader (ref: https://en.wikipedia.org/wiki/Initialization-on-demand_holder_idiom).
+     */
     private static class LazyHolder {
-        private static MyDemoData data = null;
 
+        private static MyDemoData data = null;
         static {
             try (InputStream input = MyDemoDataLoader.class.getClassLoader().getResourceAsStream(MY_DEMO_DATA_RESOURCE)) {
                 final ObjectMapper mapper = new ObjectMapper();
@@ -35,13 +44,15 @@ final class MyDemoDataLoader {
                 e.printStackTrace();
             }
         }
-
         static final MyDemoData INSTANCE = data;
     }
 
     private MyDemoDataLoader() {
     }
 
+    /**
+     * Return the static MyDemoData instance which is loaded from the static JSON resource.
+     */
     static MyDemoData getMyDemoData() {
         return LazyHolder.INSTANCE;
     }
