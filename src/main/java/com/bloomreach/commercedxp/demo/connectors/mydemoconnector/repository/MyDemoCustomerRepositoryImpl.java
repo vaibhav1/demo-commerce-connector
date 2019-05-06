@@ -19,14 +19,14 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.bloomreach.commercedxp.api.v2.connector.model.PageResult;
-import com.bloomreach.commercedxp.api.v2.connector.repository.QuerySpec;
 import org.apache.commons.lang3.StringUtils;
 
 import com.bloomreach.commercedxp.api.v2.connector.ConnectorException;
 import com.bloomreach.commercedxp.api.v2.connector.form.CustomerForm;
 import com.bloomreach.commercedxp.api.v2.connector.model.CustomerModel;
+import com.bloomreach.commercedxp.api.v2.connector.model.PageResult;
 import com.bloomreach.commercedxp.api.v2.connector.repository.AbstractCustomerRepository;
+import com.bloomreach.commercedxp.api.v2.connector.repository.QuerySpec;
 import com.bloomreach.commercedxp.demo.connectors.mydemoconnector.model.MyDemoCustomerModel;
 import com.bloomreach.commercedxp.starterstore.connectors.CommerceConnector;
 
@@ -36,11 +36,18 @@ import com.bloomreach.commercedxp.starterstore.connectors.CommerceConnector;
 public class MyDemoCustomerRepositoryImpl extends AbstractCustomerRepository {
 
     /**
-     * Let's keep the customer data in-memory here, initially empty.
+     * Let's keep the customer map by id in-memory here, initially empty.
      * So you need to sign-up first whenever once restarted.
      * Simple enough for the demo.
      */
-    private Map<String, MyDemoCustomerModel> customerModels = new ConcurrentHashMap<>();
+    private Map<String, MyDemoCustomerModel> customerModelsById = new ConcurrentHashMap<>();
+
+    /**
+     * Let's keep the customer map by e-mail in-memory here, initially empty.
+     * So you need to sign-up first whenever once restarted.
+     * Simple enough for the demo.
+     */
+    private Map<String, MyDemoCustomerModel> customerModelsByEmail = new ConcurrentHashMap<>();
 
     @Override
     public CustomerModel findOne(CommerceConnector connector, String id, QuerySpec querySpec) throws ConnectorException {
@@ -49,13 +56,7 @@ public class MyDemoCustomerRepositoryImpl extends AbstractCustomerRepository {
             throw new IllegalArgumentException("Blank customer id.");
         }
 
-        CustomerModel customerModel = null;
-        for(final CustomerModel customer: customerModels.values()){
-            if(customer.getId().equals(id)){
-                customerModel = customer;
-                break;
-            }
-        }
+        CustomerModel customerModel = customerModelsById.get(id);
 
         if (customerModel == null) {
             throw new ConnectorException("401", "Customer not authenticated.");
@@ -77,7 +78,7 @@ public class MyDemoCustomerRepositoryImpl extends AbstractCustomerRepository {
         }
 
         // Retrieve an existing customerModel from the in-memory map.
-        final MyDemoCustomerModel customerModel = customerModels.get(resourceForm.getEmail());
+        final MyDemoCustomerModel customerModel = customerModelsByEmail.get(resourceForm.getEmail());
 
         // If not existing, no customer exists in our demo.
         if (customerModel == null) {
@@ -107,7 +108,8 @@ public class MyDemoCustomerRepositoryImpl extends AbstractCustomerRepository {
         customerModel.setAccessToken(UUID.randomUUID().toString());
 
         // OK, let's register the new customer model in the in-memory map.
-        customerModels.put(resourceForm.getEmail(), customerModel);
+        customerModelsById.put(customerModel.getId(), customerModel);
+        customerModelsByEmail.put(resourceForm.getEmail(), customerModel);
 
         return customerModel;
     }
@@ -128,7 +130,7 @@ public class MyDemoCustomerRepositoryImpl extends AbstractCustomerRepository {
         // CustomerRepository#checkIn(...) is invoked when StarterStore Application wants the customer to sign in.
         // For simplicity in our demo, let's just the customer signed in without having to check the password
         // if the customer model is found in the in-memory map.
-        final MyDemoCustomerModel customerModel = customerModels.get(resourceForm.getEmail());
+        final MyDemoCustomerModel customerModel = customerModelsByEmail.get(resourceForm.getEmail());
 
         if (customerModel == null) {
             throw new ConnectorException("401", "Customer not authenticated.");
@@ -147,6 +149,6 @@ public class MyDemoCustomerRepositoryImpl extends AbstractCustomerRepository {
         // More advanced Commerce Connector Module might want to update the customer states in the backend
         // when a customer wants to sign out.
         // But in our demo, let's just return the customer model for simplicity.
-        return customerModels.get(resourceForm.getEmail());
+        return customerModelsByEmail.get(resourceForm.getEmail());
     }
 }
