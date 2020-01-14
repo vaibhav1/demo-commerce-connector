@@ -24,6 +24,7 @@ import java.math.BigDecimal;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.bloomreach.commercedxp.api.v2.connector.model.ItemId;
 import com.bloomreach.commercedxp.api.v2.connector.model.ItemModel;
 import com.bloomreach.commercedxp.api.v2.connector.model.PageResult;
 import com.bloomreach.commercedxp.api.v2.connector.model.SimpleItemId;
@@ -121,7 +122,9 @@ public class MyDemoProductRepositoryImplTest extends AbstractMyDemoRepositoryTes
         final CommerceConnector mockConnector = createMockCommerceConnector("mydemoSpace");
 
         QuerySpec querySpec = new QuerySpec();
-        ItemModel itemModel = productRepository.findOne(mockConnector, SimpleItemId.fromStringValue("97115"), querySpec);
+        ItemId itemId = new SimpleItemId("WOMENS_M-Class_TEE","97115");
+        
+        ItemModel itemModel = productRepository.findOne(mockConnector, itemId, querySpec);
 
         assertEquals("WOMENS_M-Class_TEE", itemModel.getItemId().getId());
         assertEquals("97115", itemModel.getItemId().getCode());
@@ -132,7 +135,8 @@ public class MyDemoProductRepositoryImplTest extends AbstractMyDemoRepositoryTes
         assertEquals("https://s3-us-west-2.amazonaws.com/elasticpath-demo-images/VESTRI_VIRTUAL/97115.png",
                 itemModel.getImageSet().getThumbnail().getSelfLink().getHref());
 
-        itemModel = productRepository.findOne(mockConnector, SimpleItemId.fromStringValue("11610"), querySpec);
+        itemId = new SimpleItemId("AUTO_DRIVE", "11610");
+        itemModel = productRepository.findOne(mockConnector, itemId, querySpec);
 
         assertEquals("AUTO_DRIVE", itemModel.getItemId().getId());
         assertEquals("11610", itemModel.getItemId().getCode());
@@ -143,7 +147,8 @@ public class MyDemoProductRepositoryImplTest extends AbstractMyDemoRepositoryTes
         assertEquals("https://s3-us-west-2.amazonaws.com/elasticpath-demo-images/VESTRI_VIRTUAL/11610.png",
                 itemModel.getImageSet().getThumbnail().getSelfLink().getHref());
 
-        itemModel = productRepository.findOne(mockConnector, SimpleItemId.fromStringValue("non_existing"), querySpec);
+        itemId = new SimpleItemId("non_existing", "non_existing");
+        itemModel = productRepository.findOne(mockConnector, itemId, querySpec);
         assertNull(itemModel);
     }
 

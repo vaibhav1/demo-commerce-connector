@@ -50,6 +50,8 @@ public class MyDemoProductItem implements ItemModel {
     private BigDecimal purchasePriceAmount;
 
     private Set<String> categories;
+    
+    private ItemId itemId;
 
     @JsonProperty("pid")
     public String getId() {
@@ -180,10 +182,15 @@ public class MyDemoProductItem implements ItemModel {
         this.categories = categories;
     }
 
-    
-    @Override
+
+    @JsonIgnore
+	@Override
 	public ItemId getItemId() {
-        ItemId  itemId = new SimpleItemId(this.id, this.code);
+    	if (itemId == null) {
+            if (id != null && code!=null) {
+                itemId = new SimpleItemId(id, code);
+            }
+        }
 		return itemId;
 	}
 

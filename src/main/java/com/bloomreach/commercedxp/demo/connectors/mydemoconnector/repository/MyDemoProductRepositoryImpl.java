@@ -45,7 +45,7 @@ public class MyDemoProductRepositoryImpl extends AbstractProductRepository {
 
         // For simplicity, just iterate over the items and return it if an item is found by the product code.
         for (MyDemoProductItem item : productItems) {
-            if (itemId.getId().equals(item.getCode())) {
+            if (itemId.equals(item.getItemId())) {
                 return item;
             }
         }

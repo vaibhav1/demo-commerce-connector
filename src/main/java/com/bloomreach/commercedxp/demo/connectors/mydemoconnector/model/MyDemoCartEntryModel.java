@@ -80,7 +80,7 @@ public class MyDemoCartEntryModel implements CartEntryModel {
         ItemModel toRemove = null;
 
         for (ItemModel itemModel : items) {
-            if (itemModel.getItemId().getId().equals(item.getItemId().getId())) {
+            if (itemModel.getItemId().equals(item.getItemId())) {
                 toRemove = itemModel;
                 break;
             }
