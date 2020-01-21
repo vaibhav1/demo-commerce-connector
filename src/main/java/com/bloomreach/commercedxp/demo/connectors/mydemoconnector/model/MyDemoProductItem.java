@@ -182,16 +182,15 @@ public class MyDemoProductItem implements ItemModel {
         this.categories = categories;
     }
 
-
     @JsonIgnore
-	@Override
-	public ItemId getItemId() {
-    	if (itemId == null) {
-            if (id != null && code!=null) {
+    @Override
+    public ItemId getItemId() {
+        if (itemId == null) {
+            if (id != null && code != null) {
                 itemId = new SimpleItemId(id, code);
             }
         }
-		return itemId;
-	}
+        return itemId;
+    }
 
 }
